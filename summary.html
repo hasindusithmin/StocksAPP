@@ -48,6 +48,7 @@
                         trs += tr;
                    }
                    const table = `
+                   <div class="w3-responsive">
                     <table class="w3-table-all">
                         <caption>${name}</caption>
                         <thead>
@@ -63,6 +64,7 @@
                           ${trs}
                         </tbody>
                       </table>
+                    </div>
                     `
                     document.getElementById('root').innerHTML = table;
                 },
