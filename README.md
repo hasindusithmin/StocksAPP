@@ -1,4 +1,4 @@
 # StocksAPP
 A client for StockAPI
 
-[web](https://stocksapp.github.io)
+[web](https://hasindusithmin.github.io/StocksAPP/)
