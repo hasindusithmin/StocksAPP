@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/w3.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/css/autoComplete.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
+
+</head>
+
+<body>
+    <div class="w3-panel">
+        <div class="w3-row w3-margin-bottom">
+            <div class="w3-bar w3-light-grey w3-border">
+                <a class="w3-bar-item w3-button w3-border-right" href="/">Home</a>
+              </div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-half">
+                <div class="w3-center">
+                    <input id="autoComplete" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off" maxlength="2048" tabindex="1">
+                    <br>
+                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange" id="button">click</button>
+                </div>
+            </div>
+            <div class="w3-half"></div>
+        </div>
+    </div>
+    <script>
+        fetch('http://127.0.0.1:8000/countries')
+            .then(res => res.json())
+            .then(countries => {
+                const autoCompleteJS = new autoComplete({
+                    placeHolder: "Search for Countries...",
+                    data: {
+                        src: countries
+                    },
+                    resultItem: {
+                        highlight: true,
+                    },
+                    events: {
+                        input: {
+                            selection: (event) => {
+                                const selection = event.detail.selection.value;
+                                autoCompleteJS.input.value = selection;
+                            }
+                        }
+                    }
+                });
+            })
+        document.getElementById('button').onclick = ()=>{
+            const country = document.getElementById('autoComplete').value;
+            if (country != '') {
+                const url = `/stocks.html#${country}`
+                location.href = url;
+            }
+        }    
+    </script>
+</body>
+
+</html>

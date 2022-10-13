@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stocks</title>
+    <link rel="stylesheet" href="/w3.css">
+    <link rel="stylesheet" href="/pagination.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://pagination.js.org/dist/2.1.5/pagination.js"></script>
+    
+</head>
+<body>
+    <div class="w3-panel">
+        <div class="w3-row w3-margin-bottom">
+            <div class="w3-bar w3-light-grey w3-border">
+                <a class="w3-bar-item w3-button w3-border-right" href="/">Home</a>
+              </div>
+        </div>
+        <div class="w3-row" >
+            <div class='w3-content' id="root"></div>
+            <div  class='w3-content' id="pages"></div>
+        </div>
+    </div>
+    <script>
+
+        const country = location.href.split('#')[1]
+        if (country != undefined) {
+            function template(data) {
+                let txts = ''
+                for (let dt of data) {
+                    const {country,name,full_name,isin,currency,symbol} = dt;
+                    const txt = `
+                    <div class="w3-row w3-margin w3-card-4 w3-padding">
+                        <h2 class="w3-center">${name}</h2>
+                        <div class="w3-half">
+                            <img src="https://via.placeholder.com/350x250.png?text=${name}" class="w3-image">
+                        </div>
+                        <div class="w3-half">
+                          <ul class="w3-ul w3-border w3-hoverable">
+                            <li>${country}</li>
+                            <li>${full_name}</li>
+                            <li>${name}</li>
+                            <li>${symbol}</l</div>i>
+                            <li>${isin}</li>
+                            <li>${currency}</li>
+                          </ul>
+                        </div>
+                    </div>
+                    `
+                    txts += txt;
+                }
+                document.getElementById('root').innerHTML = txts;
+            }
+            $('#pages').pagination({
+                dataSource: function(done){
+                    $.ajax({
+                        type: 'GET',
+                        url: `http://127.0.0.1:8000/stock?country=${country}`,
+                        success: function(response) {
+                            done(response);
+                        }
+                    });
+                },
+                pageSize: 5,
+                callback: function(data, pagination) {
+                    // template method of yourself
+                    const html = template(data);
+                }
+            })
+        }
+            
+        
+    </script>
+</body>
+</html>
