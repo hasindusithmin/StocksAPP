@@ -24,6 +24,19 @@
         const symbol = location.href.split('#')[1];
         const country = location.href.split('#')[2];
         const name = location.href.split('#')[3];
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+        
+            if (month.length < 2) 
+                month = '0' + month;
+            if (day.length < 2) 
+                day = '0' + day;
+        
+            return [year, month, day].join('-');
+        }
         if (symbol != undefined && country != undefined && name != undefined) {
             
             $.ajax({
@@ -36,9 +49,11 @@
                     
                     let trs = ''
                    for (let dt of data) {
+                        const date = new Date(dt['Date'] * 1000);
+
                         const tr = `
                         <tr>
-                            <td>${dt['Date']}</td>
+                            <td>${formatDate(date)}</td>
                             <td>${dt['Total Revenue']}</td>
                             <td>${dt['Gross Profit']}</td>
                             <td>${dt['Operating Income']}</td>
