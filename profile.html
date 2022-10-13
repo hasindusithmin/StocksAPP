@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+        .blockquote-custom {
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .blockquote-custom-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -25px;
+            left: 50px;
+        }
+
+
+
+        /*
+  *
+  * ==========================================
+  * FOR DEMO PURPOSES
+  * ==========================================
+  *
+  */
+        body {
+            background: #eff0eb;
+            background-image: url('https://i.postimg.cc/MTbfnkj6/bg.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="py-5">
+        <div class="container">
+            <!-- FOR DEMO PURPOSE -->
+            <div class="row">
+                <div class="col-lg-6 mx-auto">
+                    <header class="text-center pb-5">
+                        <h1 class="h2" id="name"></h1>
+                    </header>
+                </div>
+            </div><!-- END -->
+
+
+            <div class="row">
+                <div class="col-lg-6 mx-auto" id="root">
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        const symbol = location.href.split('#')[1];
+        const country = location.href.split('#')[2];
+        const name = location.href.split('#')[3];
+        if (symbol != undefined && country != undefined && name != undefined) {
+            document.getElementById('name').innerText = name.replaceAll('%',' ');
+            $.ajax({
+                beforeSend: function() {
+                    document.getElementById('root').innerText = 'Loading data from stockapi.deta.dev ...'
+                },
+                type: 'GET',
+                url: `http://127.0.0.1:8000/profile/${symbol}/${country}`,
+                success: function(data) {
+                    const {url,desc} = data;
+                    const txt = `
+                    <blockquote class="blockquote blockquote-custom bg-white p-5 shadow rounded">
+                        <div class="blockquote-custom-icon bg-info shadow-sm"><i
+                                class="fa fa-quote-left text-white"></i></div>
+                        <p class="mb-0 mt-2 font-italic">"${desc}"</p>
+                        <footer class="blockquote-footer pt-4 mt-4 border-top">
+                            See More: <cite title="Source Title"><a target="_blank" href="${url}">${name}</a></cite>
+                        </footer>
+                    </blockquote>
+                    `
+                    document.getElementById('root').innerHTML = txt;
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
