@@ -61,6 +61,9 @@
             $('#pages').pagination({
                 dataSource: function(done){
                     $.ajax({
+                        beforeSend: function() {
+                            document.getElementById('root').innerText = 'Loading data from stockapi.deta.dev ...';
+                        },
                         type: 'GET',
                         url: `https://stockapi.deta.dev/stock?country=${country}`,
                         success: function(response) {
