@@ -64,7 +64,7 @@
                             $('#root').html('Loading data from stockapi.deta.dev ...');
                         },
                         type: 'GET',
-                        url: `http://127.0.0.1:8000/overview/${country}`,
+                        url: `https://stockapi.deta.dev/overview/${country}`,
                         success: function(response) {
                             done(response);
                         }

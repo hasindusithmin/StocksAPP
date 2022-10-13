@@ -62,7 +62,7 @@
                 dataSource: function(done){
                     $.ajax({
                         type: 'GET',
-                        url: `http://127.0.0.1:8000/stock?country=${country}`,
+                        url: `https://stockapi.deta.dev/stock?country=${country}`,
                         success: function(response) {
                             done(response);
                         }

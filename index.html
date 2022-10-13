@@ -29,7 +29,7 @@
         </div>
     </div>
     <script>
-        fetch('http://127.0.0.1:8000/countries')
+        fetch('https://stockapi.deta.dev/countries')
             .then(res => res.json())
             .then(countries => {
                 const autoCompleteJS = new autoComplete({

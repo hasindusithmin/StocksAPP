@@ -32,7 +32,7 @@
                     document.getElementById('notification').innerText = 'Loading data from stockapi.deta.dev ...';
                 },
                 type: 'GET',
-                url: `http://127.0.0.1:8000/info/${symbol}/${country}`,
+                url: `https://stockapi.deta.dev/info/${symbol}/${country}`,
                 success: function(data) {
                     document.getElementById('notification').innerText = '';
                     const li = document.createElement('li')

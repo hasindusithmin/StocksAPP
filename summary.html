@@ -44,7 +44,7 @@
                     document.getElementById('root').innerText = 'Loading data from stockapi.deta.dev ...';
                 },
                 type: 'GET',
-                url: `http://127.0.0.1:8000/summary/${symbol}/${country}`,
+                url: `https://stockapi.deta.dev/summary/${symbol}/${country}`,
                 success: function(data) {
                     
                     let trs = ''
