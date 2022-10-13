@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information</title>
+    <link rel="stylesheet" href="/w3.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+<body>
+    <div class="w3-panel">
+        <div class="w3-row w3-margin-bottom">
+            <div class="w3-bar w3-light-grey w3-border">
+                <a class="w3-bar-item w3-button w3-border-right" href="/">Home</a>
+              </div>
+        </div>
+        <div class="w3-row" id="notification"></div>
+        <div class="w3-row" id="root">
+            <ul class="w3-ul w3-border w3-center w3-hover-shadow" id="ul"></ul>
+        </div>
+    </div>
+    <script>
+        const symbol = location.href.split('#')[1];
+        const country = location.href.split('#')[2];
+        const name = location.href.split('#')[3];
+        if (symbol != undefined && country != undefined && name != undefined) {
+            
+            $.ajax({
+                beforeSend: function() {
+                    document.getElementById('notification').innerText = 'Loading data from stockapi.deta.dev ...';
+                },
+                type: 'GET',
+                url: `http://127.0.0.1:8000/info/${symbol}/${country}`,
+                success: function(data) {
+                    document.getElementById('notification').innerText = '';
+                    const li = document.createElement('li')
+                    li.className = 'w3-green w3-xlarge w3-padding-32'
+                    li.innerHTML = name;
+                    document.getElementById('ul').appendChild(li);
+                    for (let[key,value] of Object.entries(data)) {
+                        const li = document.createElement('li')
+                        li.innerHTML = `<b>${key}</b> ${value}`
+                        document.getElementById('ul').appendChild(li)
+                    }
+                },
+                error: function(xhr, status, error) {
+                    document.getElementById('notification').innerText = xhr.responseText;
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>
