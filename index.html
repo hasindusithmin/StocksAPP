@@ -20,14 +20,17 @@
               </div>
         </div>
         <div class="w3-row">
-            <div class="w3-half">
+            <div class="w3-third">.</div>
+            <div class="w3-third">
                 <div class="w3-center">
                     <input id="autoComplete" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off" maxlength="2048" tabindex="1">
                     <br>
-                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange" id="button">click</button>
+                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange" id="brief">stocks</button>
+                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange" id="more">overview</button>
+
                 </div>
             </div>
-            <div class="w3-half"></div>
+            <div class="w3-third">.</div>
         </div>
     </div>
     <script>
@@ -52,13 +55,20 @@
                     }
                 });
             })
-        document.getElementById('button').onclick = ()=>{
+        document.getElementById('brief').onclick = ()=>{
             const country = document.getElementById('autoComplete').value;
             if (country != '') {
                 const url = `/stocks.html#${country}`
                 location.href = url;
             }
-        }    
+        }  
+        document.getElementById('more').onclick = ()=>{
+            const country = document.getElementById('autoComplete').value;
+            if (country != '') {
+                const url = `/overview.html#${country}`
+                location.href = url;
+            }
+        }   
     </script>
 </body>
 
