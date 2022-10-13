@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
+    <link rel="stylesheet" href="/w3.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div class="w3-panel">
+        <div class="w3-row w3-margin-bottom">
+            <div class="w3-bar w3-light-grey w3-border">
+                <a class="w3-bar-item w3-button w3-border-right" href="/">Home</a>
+              </div>
+        </div>
+        <div class="w3-row" id="root"></div>
+    </div>
+    <script>
+        const symbol = location.href.split('#')[1];
+        const country = location.href.split('#')[2];
+        const name = location.href.split('#')[3];
+        if (symbol != undefined && country != undefined && name != undefined) {
+            
+            $.ajax({
+                beforeSend: function() {
+                    document.getElementById('root').innerText = 'Loading data from stockapi.deta.dev ...';
+                },
+                type: 'GET',
+                url: `http://127.0.0.1:8000/summary/${symbol}/${country}`,
+                success: function(data) {
+                    
+                    let trs = ''
+                   for (let dt of data) {
+                        const tr = `
+                        <tr>
+                            <td>${dt['Date']}</td>
+                            <td>${dt['Total Revenue']}</td>
+                            <td>${dt['Gross Profit']}</td>
+                            <td>${dt['Operating Income']}</td>
+                            <td>${dt['Net Income']}</td>
+                        </tr>
+                        `
+                        trs += tr;
+                   }
+                   const table = `
+                    <table class="w3-table-all">
+                        <caption>${name}</caption>
+                        <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>Total Revenue</th>
+                            <th>Gross Profit</th>
+                            <th>Operating Income</th>
+                            <th>Net Income</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          ${trs}
+                        </tbody>
+                      </table>
+                    `
+                    document.getElementById('root').innerHTML = table;
+                },
+                error: function(xhr, status, error) {
+                    document.getElementById('root').innerText = xhr.responseText;
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
