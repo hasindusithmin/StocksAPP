@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/css/autoComplete.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
@@ -14,7 +15,12 @@
 
 <body>
     <div class="w3-panel">
-
+        <div class="w3-row w3-padding">
+            <header class="w3-container w3-center w3-padding-48 w3-white">
+                <h1 class="w3-xxxlarge"><b>Stocks APP</b></h1>
+                <h6>Welcome to <span class="w3-tag">stocks app</span></h6>
+            </header>
+        </div>
         <div class="w3-row w3-padding">
             <!-- TradingView Widget BEGIN -->
             <div class="tradingview-widget-container">
@@ -35,10 +41,6 @@
                                 [
                                     "Amazon.com Inc.",
                                     "NASDAQ:AMZN|1D"
-                                ],
-                                [
-                                    "PetroChina Co. Ltd.",
-                                    "TRADEGATE:PC6|1D"
                                 ],
                                 [
                                     "Apple Inc.",
@@ -87,7 +89,7 @@
             </div>
             <!-- TradingView Widget END -->
         </div>
-
+        <div class="w3-light-grey w3-padding-64">
         <div class="w3-row w3-padding">
             <div class="w3-third">.</div>
             <div class="w3-third">
@@ -123,6 +125,11 @@
             </div>
             <div class="w3-third">.</div>
         </div>
+    </div>
+        <footer class="w3-container w3-dark-grey" style="padding:32px">
+            <a href="#" class="w3-button w3-black w3-padding-large w3-margin-bottom"><i
+                    class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+        </footer>
     </div>
     <script>
         let stocks;
