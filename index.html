@@ -7,20 +7,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/css/autoComplete.min.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/css/autoComplete.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
 </head>
 
 <body>
     <div class="w3-panel">
+
+        <div class="w3-row w3-padding">
+            <!-- TradingView Widget BEGIN -->
+            <div class="tradingview-widget-container">
+                <div id="tradingview_7e52d"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                <script type="text/javascript">
+                    new TradingView.MediumWidget(
+                        {
+                            "symbols": [
+                                [
+                                    "Walmart",
+                                    "NYSE:WMT|1D"
+                                ],
+                                [
+                                    "China Petroleum",
+                                    "LSIN:SNP|1D"
+                                ],
+                                [
+                                    "Amazon.com Inc.",
+                                    "NASDAQ:AMZN|1D"
+                                ],
+                                [
+                                    "PetroChina Co. Ltd.",
+                                    "TRADEGATE:PC6|1D"
+                                ],
+                                [
+                                    "Apple Inc.",
+                                    "NASDAQ:AAPL|1D"
+                                ],
+                                [
+                                    "CVS Health Corp.",
+                                    "NYSE:CVS|1D"
+                                ],
+                                [
+                                    "Royal Dutch Shell PLC",
+                                    "NYSE:SHEL|1D"
+                                ],
+                                [
+                                    "Berkshire Hathaway Inc.",
+                                    "NYSE:BRK.B|1D"
+                                ],
+                                [
+                                    "Toyota Motor Corp. ",
+                                    "NYSE:TM|1D"
+                                ],
+                                [
+                                    " Volkswagen AG ",
+                                    "XETR:VOW3|1D"
+                                ]
+                            ],
+                            "chartOnly": false,
+                            "width": "1000",
+                            "height": "500",
+                            "locale": "en",
+                            "colorTheme": "light",
+                            "autosize": false,
+                            "showVolume": false,
+                            "hideDateRanges": false,
+                            "scalePosition": "right",
+                            "scaleMode": "Normal",
+                            "fontFamily": "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
+                            "noTimeScale": false,
+                            "valuesTracking": "1",
+                            "chartType": "line",
+                            "backgroundColor": "rgba(255, 255, 255, 0.91)",
+                            "container_id": "tradingview_7e52d"
+                        }
+                    );
+                </script>
+            </div>
+            <!-- TradingView Widget END -->
+        </div>
+
         <div class="w3-row w3-padding">
             <div class="w3-third">.</div>
             <div class="w3-third">
                 <div class="w3-center">
-                    <input id="autoComplete1" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off" maxlength="2048" tabindex="1">
+                    <input id="autoComplete1" type="search" dir="ltr" spellcheck=false autocorrect="off"
+                        autocomplete="off" autocapitalize="off" maxlength="2048" tabindex="1">
                     <br>
-                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange" id="brief">stocks</button>
-                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange" id="more">overview</button>
+                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange"
+                        id="brief">stocks</button>
+                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange"
+                        id="more">overview</button>
 
                 </div>
             </div>
@@ -30,12 +108,17 @@
             <div class="w3-third">.</div>
             <div class="w3-third">
                 <div class="w3-center">
-                    <input id="autoComplete2" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off" maxlength="2048" tabindex="1">
+                    <input id="autoComplete2" type="search" dir="ltr" spellcheck=false autocorrect="off"
+                        autocomplete="off" autocapitalize="off" maxlength="2048" tabindex="1">
                     <br>
-                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange" id="active">Branches</button>
-                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange" id="profile">Profile</button>
-                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange" id="summary">Summary</button>
-                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange" id="information">Information</button>
+                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange"
+                        id="active">Branches</button>
+                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange"
+                        id="profile">Profile</button>
+                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange"
+                        id="summary">Summary</button>
+                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange"
+                        id="information">Information</button>
                 </div>
             </div>
             <div class="w3-third">.</div>
@@ -44,12 +127,12 @@
     <script>
         let stocks;
         fetch('/StocksAPP/stocks.json')
-            
-            .then(res=>res.json())
-            .then(data=>{
+
+            .then(res => res.json())
+            .then(data => {
                 stocks = data;
-                const autoCompleteJS =  new autoComplete({
-                    selector:'#autoComplete2',
+                const autoCompleteJS = new autoComplete({
+                    selector: '#autoComplete2',
                     placeHolder: "Search for Stocks ...",
                     data: {
                         src: Object.keys(data)
@@ -70,7 +153,7 @@
 
         const countries = ['argentina', 'brazil', 'canada', 'chile', 'colombia', 'costa rica', 'jamaica', 'mexico', 'peru', 'united states', 'venezuela', 'austria', 'belgium', 'bosnia', 'bulgaria', 'croatia', 'cyprus', 'czech republic', 'denmark', 'finland', 'france', 'germany', 'greece', 'hungary', 'iceland', 'ireland', 'italy', 'luxembourg', 'malta', 'montenegro', 'netherlands', 'norway', 'poland', 'portugal', 'romania', 'russia', 'serbia', 'slovakia', 'slovenia', 'spain', 'sweden', 'switzerland', 'turkey', 'ukraine', 'united kingdom', 'australia', 'bangladesh', 'china', 'hong kong', 'india', 'indonesia', 'japan', 'kazakhstan', 'malaysia', 'mongolia', 'new zealand', 'pakistan', 'philippines', 'singapore', 'south korea', 'sri lanka', 'taiwan', 'thailand', 'vietnam', 'bahrain', 'egypt', 'iraq', 'israel', 'jordan', 'kuwait', 'lebanon', 'oman', 'palestine', 'qatar', 'saudi arabia', 'dubai', 'botswana', 'ivory coast', 'kenya', 'malawi', 'mauritius', 'morocco', 'namibia', 'nigeria', 'rwanda', 'south africa', 'tanzania', 'tunisia', 'uganda', 'zambia', 'zimbabwe']
         const autoCompleteJS = new autoComplete({
-            selector:'#autoComplete1',
+            selector: '#autoComplete1',
             placeHolder: "Search for Countries ...",
             data: {
                 src: countries
@@ -88,29 +171,29 @@
             }
         });
         //by country
-        document.getElementById('brief').onclick = ()=>{
+        document.getElementById('brief').onclick = () => {
             const country = document.getElementById('autoComplete1').value;
             if (country != '') {
                 const url = `/StocksAPP/stocks.html#${country}`
                 location.href = url;
             }
-        }  
-        document.getElementById('more').onclick = ()=>{
+        }
+        document.getElementById('more').onclick = () => {
             const country = document.getElementById('autoComplete1').value;
             if (country != '') {
                 const url = `/StocksAPP/overview.html#${country}`
                 location.href = url;
             }
-        }   
+        }
         //by stock
-        document.getElementById('active').onclick = ()=>{
+        document.getElementById('active').onclick = () => {
             const value = document.getElementById('autoComplete2').value;
             if (value != '') {
                 const symbol = stocks[value];
                 location.href = `/StocksAPP/activecountries.html#${symbol}`
             }
-        } 
-        document.getElementById('profile').onclick = ()=>{
+        }
+        document.getElementById('profile').onclick = () => {
             const value = document.getElementById('autoComplete2').value;
             if (value != '') {
                 const symbol = stocks[value];
@@ -118,8 +201,8 @@
                 const country = value.split(',')[1];
                 location.href = `/StocksAPP/profile.html#${symbol}#${country}#${name}`
             }
-        } 
-        document.getElementById('summary').onclick = ()=>{
+        }
+        document.getElementById('summary').onclick = () => {
             const value = document.getElementById('autoComplete2').value;
             if (value != '') {
                 const symbol = stocks[value];
@@ -127,8 +210,8 @@
                 const country = value.split(',')[1];
                 location.href = `/StocksAPP/summary.html#${symbol}#${country}#${name}`
             }
-        } 
-        document.getElementById('information').onclick = ()=>{
+        }
+        document.getElementById('information').onclick = () => {
             const value = document.getElementById('autoComplete2').value;
             if (value != '') {
                 const symbol = stocks[value];
