@@ -7,18 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="/StocksAPP/autoComplete.min.css">
-    <script src="/StocksAPP/autoComplete.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/css/autoComplete.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
 </head>
 
 <body>
     <div class="w3-panel">
-        <div class="w3-row">
+        <div class="w3-row w3-padding">
             <div class="w3-third">.</div>
             <div class="w3-third">
                 <div class="w3-center">
-                    <input id="autoComplete" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off" maxlength="2048" tabindex="1">
+                    <input id="autoComplete1" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off" maxlength="2048" tabindex="1">
                     <br>
                     <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange" id="brief">stocks</button>
                     <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange" id="more">overview</button>
@@ -27,15 +26,33 @@
             </div>
             <div class="w3-third">.</div>
         </div>
+        <div class="w3-row w3-padding">
+            <div class="w3-third">.</div>
+            <div class="w3-third">
+                <div class="w3-center">
+                    <input id="autoComplete2" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off" maxlength="2048" tabindex="1">
+                    <br>
+                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange" id="active">Branches</button>
+                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange" id="profile">Profile</button>
+                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange" id="summary">Summary</button>
+                    <button class="w3-button w3-round-xxlarge w3-margin-top w3-border w3-border-orange" id="information">Information</button>
+                </div>
+            </div>
+            <div class="w3-third">.</div>
+        </div>
     </div>
     <script>
-        fetch('https://stockapi.deta.dev/countries')
-            .then(res => res.json())
-            .then(countries => {
-                const autoCompleteJS = new autoComplete({
-                    placeHolder: "Search for Countries...",
+        let stocks;
+        fetch('/stocks.json')
+            
+            .then(res=>res.json())
+            .then(data=>{
+                stocks = data;
+                const autoCompleteJS =  new autoComplete({
+                    selector:'#autoComplete2',
+                    placeHolder: "Search for Stocks ...",
                     data: {
-                        src: countries
+                        src: Object.keys(data)
                     },
                     resultItem: {
                         highlight: true,
@@ -50,20 +67,76 @@
                     }
                 });
             })
+
+        const countries = ['argentina', 'brazil', 'canada', 'chile', 'colombia', 'costa rica', 'jamaica', 'mexico', 'peru', 'united states', 'venezuela', 'austria', 'belgium', 'bosnia', 'bulgaria', 'croatia', 'cyprus', 'czech republic', 'denmark', 'finland', 'france', 'germany', 'greece', 'hungary', 'iceland', 'ireland', 'italy', 'luxembourg', 'malta', 'montenegro', 'netherlands', 'norway', 'poland', 'portugal', 'romania', 'russia', 'serbia', 'slovakia', 'slovenia', 'spain', 'sweden', 'switzerland', 'turkey', 'ukraine', 'united kingdom', 'australia', 'bangladesh', 'china', 'hong kong', 'india', 'indonesia', 'japan', 'kazakhstan', 'malaysia', 'mongolia', 'new zealand', 'pakistan', 'philippines', 'singapore', 'south korea', 'sri lanka', 'taiwan', 'thailand', 'vietnam', 'bahrain', 'egypt', 'iraq', 'israel', 'jordan', 'kuwait', 'lebanon', 'oman', 'palestine', 'qatar', 'saudi arabia', 'dubai', 'botswana', 'ivory coast', 'kenya', 'malawi', 'mauritius', 'morocco', 'namibia', 'nigeria', 'rwanda', 'south africa', 'tanzania', 'tunisia', 'uganda', 'zambia', 'zimbabwe']
+        const autoCompleteJS = new autoComplete({
+            selector:'#autoComplete1',
+            placeHolder: "Search for Countries ...",
+            data: {
+                src: countries
+            },
+            resultItem: {
+                highlight: true,
+            },
+            events: {
+                input: {
+                    selection: (event) => {
+                        const selection = event.detail.selection.value;
+                        autoCompleteJS.input.value = selection;
+                    }
+                }
+            }
+        });
+        //by country
         document.getElementById('brief').onclick = ()=>{
-            const country = document.getElementById('autoComplete').value;
+            const country = document.getElementById('autoComplete1').value;
             if (country != '') {
                 const url = `/StocksAPP/stocks.html#${country}`
                 location.href = url;
             }
         }  
         document.getElementById('more').onclick = ()=>{
-            const country = document.getElementById('autoComplete').value;
+            const country = document.getElementById('autoComplete1').value;
             if (country != '') {
                 const url = `/StocksAPP/overview.html#${country}`
                 location.href = url;
             }
         }   
+        //by stock
+        document.getElementById('active').onclick = ()=>{
+            const value = document.getElementById('autoComplete2').value;
+            if (value != '') {
+                const symbol = stocks[value];
+                location.href = `/StocksAPP/activecountries.html#${symbol}`
+            }
+        } 
+        document.getElementById('profile').onclick = ()=>{
+            const value = document.getElementById('autoComplete2').value;
+            if (value != '') {
+                const symbol = stocks[value];
+                const name = value.split(',')[0];
+                const country = value.split(',')[1];
+                location.href = `/StocksAPP/profile.html#${symbol}#${country}#${name}`
+            }
+        } 
+        document.getElementById('summary').onclick = ()=>{
+            const value = document.getElementById('autoComplete2').value;
+            if (value != '') {
+                const symbol = stocks[value];
+                const name = value.split(',')[0];
+                const country = value.split(',')[1];
+                location.href = `/StocksAPP/summary.html#${symbol}#${country}#${name}`
+            }
+        } 
+        document.getElementById('information').onclick = ()=>{
+            const value = document.getElementById('autoComplete2').value;
+            if (value != '') {
+                const symbol = stocks[value];
+                const name = value.split(',')[0];
+                const country = value.split(',')[1];
+                location.href = `/StocksAPP/information.html#${symbol}#${country}#${name}`
+            }
+        } 
     </script>
 </body>
 
